@@ -1,7 +1,8 @@
-const API_BASE_URL = 'http://localhost:4000/api';
+
+const API_BASE = "https://pocketlandz.onrender.com";
 
 async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+  const response = await fetch("https://pocketlandz.onrender.com/api/areas"), options);
 
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));
@@ -27,3 +28,4 @@ export const api = {
       body: JSON.stringify(payload)
     })
 };
+`

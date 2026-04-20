@@ -9,7 +9,7 @@ import ProtectedRoute from "./components/admin/ProtectedRoute.jsx";
 function HomePage() {
   return (
     <div style={{ padding: "40px", fontFamily: "Arial, sans-serif" }}>
-      <h1>Pocket Landz</h1>
+      <h1>Pocket Landz LIVE VERSION</h1>
       <p>Frontend is running.</p>
       <Link to="/admin/login">Go to Admin Panel</Link>
     </div>

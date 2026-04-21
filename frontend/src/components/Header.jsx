@@ -11,6 +11,7 @@ export default function Header() {
           <a href="#listings">Listings</a>
           <a href="#compare">Compare</a>
           <a href="#contact">Contact</a>
+          <a href="#/admin/login">Admin</a>
         </nav>
       </div>
     </header>

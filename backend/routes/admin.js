@@ -1,3 +1,4 @@
+import Lead from "../models/Lead.js";
 import express from "express";
 import Listing from "../models/Listing.js";
 
@@ -9,24 +10,6 @@ const adminUser = {
   name: "Pocket Landz Admin"
 };
 
-const adminLeads = [
-  {
-    id: 1,
-    name: "Ravi Kumar",
-    email: "ravi@example.com",
-    phone: "9876543210",
-    interest: "Kokapet",
-    createdAt: "2026-04-17"
-  },
-  {
-    id: 2,
-    name: "Sneha Reddy",
-    email: "sneha@example.com",
-    phone: "9988776655",
-    interest: "Tellapur Elite Plots",
-    createdAt: "2026-04-17"
-  }
-];
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -57,15 +40,15 @@ router.post("/login", (req, res) => {
 
 router.get("/dashboard", authMiddleware, async (_req, res) => {
   const listings = await Listing.find();
+  const leads = await Lead.find().sort({ createdAt: -1 });
 
   res.json({
     totalListings: listings.length,
-    totalLeads: adminLeads.length,
+    totalLeads: leads.length,
     totalAreas: [...new Set(listings.map((item) => item.area))].length,
-    latestLead: adminLeads[adminLeads.length - 1] || null
+    latestLead: leads[0] || null
   });
 });
-
 router.get("/listings", authMiddleware, async (_req, res) => {
   const listings = await Listing.find().sort({ createdAt: -1 });
   res.json(listings);
@@ -117,8 +100,9 @@ router.delete("/listings/:id", authMiddleware, async (req, res) => {
   res.json({ message: "Listing deleted" });
 });
 
-router.get("/leads", authMiddleware, (_req, res) => {
-  res.json(adminLeads);
+router.get("/leads", authMiddleware, async (_req, res) => {
+  const leads = await Lead.find().sort({ createdAt: -1 });
+  res.json(leads);
 });
 
 export default router;

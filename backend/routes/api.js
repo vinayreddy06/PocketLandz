@@ -1,3 +1,4 @@
+import Lead from "../models/Lead.js";
 import express from 'express';
 import { areas, listings, testimonials, trends } from '../data/fakeData.js';
 
@@ -83,6 +84,15 @@ router.post('/leads', (req, res) => {
       createdAt: new Date().toISOString()
     }
   });
+router.post("/leads", async (req, res) => {
+  try {
+    const newLead = await Lead.create(req.body);
+    res.status(201).json(newLead);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to save lead" });
+  }
+});
+
 });
 
 export default router;
